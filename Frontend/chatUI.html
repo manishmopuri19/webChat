@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Velvet | Pulse Chat</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Montserrat:wght@300;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="Css/chatUi.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+
+    <div class="app-bg"></div>
+
+    <div class="chat-container">
+        <aside class="sidebar">
+            <div class="brand-icon">V</div>
+            <div class="nav-item active" title="Whispers">
+                <i data-lucide="message-square"></i>
+            </div>
+            
+            <div class="nav-item" title="Summon Souls" onclick="openInviteModal()">
+                <i data-lucide="user-plus"></i>
+            </div>
+
+            <div class="nav-item" title="Global Pulse">
+                <i data-lucide="globe"></i>
+            </div>
+            <div class="nav-item" title="Call History">
+                <i data-lucide="phone-forwarded"></i>
+            </div>
+            <div class="nav-item notification-icon" title="Notifications">
+                <i data-lucide="bell"></i>
+                <span class="pulse-dot"></span>
+            </div>
+            <div class="nav-item" style="margin-top: auto;" title="Settings">
+                <i data-lucide="settings"></i>
+            </div>
+        </aside>
+
+        <section class="contacts-panel">
+            <div class="panel-header">
+                <h2>Whispers</h2>
+            </div>
+            <div class="search-bar">
+                <div class="search-input-wrapper">
+                    <i data-lucide="search" class="search-icon"></i>
+                    <input type="text" placeholder="Find a soul...">
+                </div>
+            </div>
+            <div class="contact-list" id="friends-container">
+                <div class="contact-item active">
+                    <div class="avatar online"></div>
+                    <div class="contact-info">
+                        <span class="name">Scarlett</span>
+                        <span class="preview">Typing...</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <main class="chat-window">
+            <header class="chat-header">
+                <div class="current-user">
+                    <h3>Scarlett</h3>
+                    <p class="status-glow">CONNECTED</p>
+                </div>
+                <div class="actions">
+                    <button class="action-btn" title="Voice Call"><i data-lucide="phone"></i></button>
+                    <button class="action-btn" title="Video Call"><i data-lucide="video"></i></button>
+                    <button class="action-btn" title="Details"><i data-lucide="info"></i></button>
+                </div>
+            </header>
+
+            <div class="message-area">
+                <div class="bubble received">
+                    I saw your message from across the global pulse.
+                    <span class="time">11:11 PM</span>
+                </div>
+                <div class="bubble sent">
+                    The world is smaller than it looks when you're looking for the right person.
+                    <span class="time">11:12 PM</span>
+                </div>
+            </div>
+
+            <footer class="chat-input-section">
+
+                
+                <button class="icon-btn"><i data-lucide="plus-circle"><input type="file" id="fileInput"></i></button>
+                <div class="input-wrapper">
+                    <input type="text" placeholder="Whisper your thoughts...">
+                    <button class="icon-btn emoji-btn"><i data-lucide="smile"></i></button>
+                </div>
+                <button class="send-circle">
+                    <i data-lucide="send"></i>
+                </button>
+            </footer>
+        </main>
+    </div>
+
+    <div id="inviteOverlay" class="modal-overlay">
+        <div class="invite-box glass-card">
+            <div class="invite-header">
+                <h3>Summon a Soul</h3>
+                <button class="close-btn" onclick="closeInviteModal()"><i data-lucide="x"></i></button>
+            </div>
+            <p class="invite-desc">Enter an email to send a secret invitation link.</p>
+            <div class="invite-input-group">
+                <input type="email" id="friendEmail" placeholder="soul@example.com" required>
+                <button class="send-invite-btn" onclick="handleInvite()">
+                    <i data-lucide="send"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script type="module" src="Scripts/Authentication.js"></script>
+    <script type="module" src="Scripts/invite.js"></script>
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+</html>
