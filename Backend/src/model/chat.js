@@ -1,17 +1,12 @@
-import mongoose from "mongoose";
-
 const chatSchema = new mongoose.Schema({
-    members:[
-        {
-            type:mongoose.Schema.Types.ObjectId,
-            ref:"user"
-        }
-    ],
-    lastMessage:{
-        type:mongoose.Schema.Types.ObjectId,
-        ref:"message"
-    }
+    participants: [{ 
+        type: mongoose.Schema.Types.ObjectId, 
+        ref: "users",
+        required: true 
+    }],
+    lastMessage: { type: mongoose.Schema.Types.ObjectId, ref: "Message" }
+}, { timestamps: true });
 
-},{timestamps:true});
+chatSchema.index({ participants: 1 }); 
 
-export const chat = mongoose.model("Chat",chatSchema);
+export const Chat = mongoose.model("Chat", chatSchema);

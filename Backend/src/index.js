@@ -1,6 +1,9 @@
 import "dotenv/config";
 import app from "./app.js";
 import { connectDb } from "./config/Database.js";
+import { WebSocketServer } from "ws";
+import http from "http";
+import { set } from "mongoose";
 
 const PORT=process.env.PORT || 8000;
 
@@ -18,6 +21,20 @@ const startServer=async()=>{
     }
 }
 
+const server=http.createServer(app);
 
+const wss=new WebSocketServer({server});
+
+
+const clients=new set();
+
+wss.on("connection",(ws)=>{
+    console.log("client connected");
+    clients.add(ws);
+
+    ws.on("message",(message)=>{
+        
+    })
+})
 
 startServer();

@@ -38,26 +38,22 @@
             </div>
         </aside>
 
-        <section class="contacts-panel">
-            <div class="panel-header">
-                <h2>Whispers</h2>
-            </div>
-            <div class="search-bar">
-                <div class="search-input-wrapper">
-                    <i data-lucide="search" class="search-icon"></i>
-                    <input type="text" placeholder="Find a soul...">
-                </div>
-            </div>
-            <div class="contact-list" id="friends-container">
-                <div class="contact-item active">
-                    <div class="avatar online"></div>
-                    <div class="contact-info">
-                        <span class="name">Scarlett</span>
-                        <span class="preview">Typing...</span>
-                    </div>
-                </div>
-            </div>
-        </section>
+       <section class="contacts-panel">
+    <div class="panel-header">
+        <h2>Whispers</h2>
+    </div>
+    <div class="search-bar">
+        <div class="search-input-wrapper">
+            <i data-lucide="search" class="search-icon"></i>
+            <input type="text" placeholder="Find a soul...">
+        </div>
+    </div>
+    
+    <div class="contact-list" id="friends-container">
+        </div>
+</section>
+
+<script type="module" src="Scripts/chatLogic.js"></script>
 
         <main class="chat-window">
             <header class="chat-header">
@@ -84,17 +80,25 @@
             </div>
 
             <footer class="chat-input-section">
-
-                
-                <button class="icon-btn"><i data-lucide="plus-circle"><input type="file" id="fileInput"></i></button>
-                <div class="input-wrapper">
-                    <input type="text" placeholder="Whisper your thoughts...">
-                    <button class="icon-btn emoji-btn"><i data-lucide="smile"></i></button>
-                </div>
-                <button class="send-circle">
-                    <i data-lucide="send"></i>
-                </button>
-            </footer>
+    <label class="icon-btn" for="fileInput">
+        <i data-lucide="plus-circle"></i>
+        <input type="file" id="fileInput" style="display: none;" onchange="handleFileSelect(event)">
+    </label>
+    
+    <div class="input-wrapper">
+        <textarea 
+            id="messageInput" 
+            placeholder="Whisper your thoughts..." 
+            rows="1" 
+            oninput="autoExpand(this)"></textarea>
+            
+        <button class="icon-btn emoji-btn"><i data-lucide="smile"></i></button>
+    </div>
+    
+    <button class="send-circle">
+        <i data-lucide="send"></i>
+    </button>
+</footer>
         </main>
     </div>
 
@@ -116,8 +120,29 @@
 
     <script type="module" src="Scripts/Authentication.js"></script>
     <script type="module" src="Scripts/invite.js"></script>
+    <script type="module" src="Scripts/chatLogic.js"></script>
+    <script type="module" src="Scripts/messages.js"></script>
+
     <script>
         lucide.createIcons();
+        function autoExpand(textarea) {
+    textarea.style.height = 'auto';
+    
+    textarea.style.height = (textarea.scrollHeight) + 'px';
+    
+    if (textarea.scrollHeight > 130) {
+        textarea.style.overflowY = 'auto';
+    } else {
+        textarea.style.overflowY = 'hidden';
+    }
+}
+
+document.getElementById('messageInput')?.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' && !e.shiftKey) {
+        e.preventDefault();
+        console.log("Sending message...");
+    }
+});
     </script>
 </body>
 </html>

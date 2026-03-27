@@ -8,7 +8,13 @@ const messageSchema = new mongoose.Schema({
     },
     sender:{
         type:mongoose.Schema.Types.ObjectId,
-        ref:"user"
+        ref:"user",
+        required:true
+    },
+    receiver: { 
+        type: mongoose.Schema.Types.ObjectId, 
+        ref: "users", 
+        required: true 
     },
     text:{
         type:String
@@ -20,7 +26,7 @@ const messageSchema = new mongoose.Schema({
     },
     status:{
         type:String,
-        enum:["sent","delivered","seen"],
+        enum:["sent","seen"],
         default:"sent"
     }
 
