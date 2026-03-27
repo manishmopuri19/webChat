@@ -1,5 +1,5 @@
-import { Chat } from "../model/chat";
-import { message } from "../model/message";
+import { Chat } from "../model/chat.js";
+import { message } from "../model/message.js";
 
 export const chatHistory=async(req,res)=>{
 try {

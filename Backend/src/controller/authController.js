@@ -1,5 +1,5 @@
-import { users } from "../model/user";
-import generateToken from "../util/generateToken";
+import { users } from "../model/user.js";
+import generateToken from "../util/generateToken.js";
 import bcrypt from "bcrypt";
 
 export const login=async(req,res)=>{
