@@ -1,4 +1,3 @@
-import { message} from "../model/message.js";
 import { users } from "../model/user.js";
 
 export const getFriends=async(req,res)=>{

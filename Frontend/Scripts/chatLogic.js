@@ -1,4 +1,7 @@
 // Add this at the top of your existing chatLogic.js
+
+const socket = io("http://localhost:8000");
+
 const MOCK_FRIENDS = [
     {
     _id: "1",
@@ -82,3 +85,16 @@ export function renderWhispers() {
 // Ensure it loads
 document.addEventListener('DOMContentLoaded', renderWhispers);
 export { MOCK_FRIENDS };
+
+
+//web socket connection
+socket.on("connect",()=>{
+    console.log("connected to velvet Server");
+    const myId = localStorage.getItem('userId');
+    if (myId) {
+        socket.emit("join_self", myId);
+    }
+});
+socket.on("connect_error", (err) => {
+    console.error("The connection to the realm failed:", err.message);
+});

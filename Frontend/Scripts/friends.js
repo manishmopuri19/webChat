@@ -1,4 +1,7 @@
 import { showPunishment } from "./Authentication";
+
+const API_URL="https//:localhost:5000/api"
+
 async function renderFriends() {
     const container = document.getElementById('friends-container');
     const token = localStorage.getItem('token');

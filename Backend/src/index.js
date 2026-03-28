@@ -6,12 +6,7 @@ import http from "http";
 
 const PORT=process.env.PORT || 8000;
 
-const io = new Server(server, {
-    cors: {
-        origin: "*", 
-        methods: ["GET", "POST"]
-    }
-});
+
 
 const startServer=async()=>{
     try {
@@ -28,6 +23,12 @@ const startServer=async()=>{
 }
 
 const server=http.createServer(app);
+const io = new Server(server, {
+    cors: {
+        origin: "*", 
+        methods: ["GET", "POST"]
+    }
+});
 
 io.on("connection", (socket) => {
     console.log("A soul has entered the realm:", socket.id);
