@@ -1,11 +1,17 @@
 import "dotenv/config";
 import app from "./app.js";
 import { connectDb } from "./config/Database.js";
-import { WebSocketServer } from "ws";
+import { Server } from "socket.io";
 import http from "http";
-import { set } from "mongoose";
 
 const PORT=process.env.PORT || 8000;
+
+const io = new Server(server, {
+    cors: {
+        origin: "*", 
+        methods: ["GET", "POST"]
+    }
+});
 
 const startServer=async()=>{
     try {
@@ -23,18 +29,38 @@ const startServer=async()=>{
 
 const server=http.createServer(app);
 
-const wss=new WebSocketServer({server});
+io.on("connection", (socket) => {
+    console.log("A soul has entered the realm:", socket.id);
 
+    //joined a user 
+    socket.on("join_self", (userId) => {
+        socket.join(userId);
+        console.log(`User ${userId} is monitoring their own pulse.`);
+    });
 
-const clients=new set();
+    //joined to shared chat
+    socket.on("join_chat", (chatId) => {
+        socket.join(chatId);
+        console.log(`Socket ${socket.id} joined room: ${chatId}`);
+    });
 
-wss.on("connection",(ws)=>{
-    console.log("client connected");
-    clients.add(ws);
+    //emit the message to a user
+    socket.on("send_message", (data) => {
+        const { chatId, senderId, receiverId, text } = data;
 
-    ws.on("message",(message)=>{
-        
-    })
-})
+        // Broadcast to everyone in the room (including the sender's other tabs)
+        io.to(chatId).emit("receive_message", {
+            chatId,
+            senderId,
+            text,
+            createdAt: new Date()
+        });
+    });
+
+    socket.on("disconnect", () => {
+        console.log("A soul has departed.");
+    });
+});
+
 
 startServer();
